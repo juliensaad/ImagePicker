@@ -326,7 +326,11 @@ open class ImagePickerController: UIViewController {
     }
 
   fileprivate func takePicture() {
-    guard isBelowImageLimit() && !isTakingPicture else { return }
+    guard !isTakingPicture else { return }
+    
+    for asset in galleryView.selectedStack.assets {
+        galleryView.selectedStack.dropAsset(asset)
+    }
     isTakingPicture = true
     bottomContainer.pickerButton.isEnabled = false
     bottomContainer.stackView.startLoader()
